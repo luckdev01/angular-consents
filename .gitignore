@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# git ignore for fake back-end
+/src/app/**/*.js
+/server/database.json
