@@ -7,6 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { CdkTableModule } from '@angular/cdk/table';
 
 const Modules = [
   CommonModule,
@@ -16,7 +19,10 @@ const Modules = [
   MatButtonModule,
   MatSidenavModule,
   MatCheckboxModule,
-  MatListModule
+  MatListModule,
+  MatTableModule,
+  MatPaginatorModule,
+  CdkTableModule,
 ];
 
 @NgModule({
