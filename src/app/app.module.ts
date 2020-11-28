@@ -1,16 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './modules/app-routing.module';
+import { AngularMaterialModule } from './modules/angular-material.module';
+
 import { AppComponent } from './app.component';
+import { GiveConsentComponent } from './views/give-consent/give-consent.component';
+import { CollectedConsentsComponent } from './views/collected-consents/collected-consents.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GiveConsentComponent,
+    CollectedConsentsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    AngularMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
