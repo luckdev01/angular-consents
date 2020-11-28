@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AngularMaterialModule } from './modules/angular-material.module';
@@ -18,6 +19,8 @@ import { CollectedConsentsComponent } from './views/collected-consents/collected
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     AngularMaterialModule
   ],

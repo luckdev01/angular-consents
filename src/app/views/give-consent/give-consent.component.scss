@@ -1,0 +1,25 @@
+mat-card {
+  margin-bottom: 20px;
+  text-align: center;
+
+  mat-form-field {
+    margin-right: 20px;
+  }
+
+  .form-field {
+    padding: 20px;
+  }
+
+  .checkbox-frame {
+    width: 400px;
+    margin-top: 20px;
+    margin: auto;
+    text-align: left;
+    border: 1px solid black;
+    padding: 20px;
+
+    mat-checkbox {
+      margin: 10px 0 10px 0;
+    }
+  }
+}

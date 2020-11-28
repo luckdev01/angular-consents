@@ -1,0 +1,60 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card-title>
+      {{ "Give Consents" }}
+    </mat-card-title>
+
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'Name' }}" formControlName="name" />
+        <mat-error *ngIf="form.get('name').invalid">
+          {{ "Name" }}
+          {{ "is required" }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="{{ 'Email address' }}"
+          formControlName="email"
+        />
+        <mat-error *ngIf="form.get('email').invalid">
+          {{ "Email address" }}
+          {{ "is required" }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-field">
+        <mat-label>I agree to:</mat-label>
+      </div>
+
+      <div class="checkbox-frame">
+        <div>
+          <mat-checkbox formControlName="receiveNewsletter">
+            {{ "Receive newsletter" }}
+          </mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="showTargetedAds">
+            {{ "Be shown targeted ads" }}
+          </mat-checkbox>
+        </div>
+        <mat-checkbox formControlName="contributeToAnonymous">
+          {{ "Contribute to anonymous visit statistics" }}
+        </mat-checkbox>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="!form.valid"
+      >
+        {{ "Give consent" }}
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>
