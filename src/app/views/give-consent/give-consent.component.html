@@ -30,19 +30,17 @@
       </div>
 
       <div class="checkbox-frame">
-        <div>
-          <mat-checkbox formControlName="receiveNewsletter">
-            {{ "Receive newsletter" }}
+        <div *ngFor="let option of consentOptions; let i = index">
+          <mat-checkbox
+            [value]="option.value"
+            (change)="onCheckboxChange($event)"
+          >
+            {{ option.name }}
           </mat-checkbox>
         </div>
-        <div>
-          <mat-checkbox formControlName="showTargetedAds">
-            {{ "Be shown targeted ads" }}
-          </mat-checkbox>
-        </div>
-        <mat-checkbox formControlName="contributeToAnonymous">
-          {{ "Contribute to anonymous visit statistics" }}
-        </mat-checkbox>
+        <mat-error *ngIf="!isStart && form.get('givenConsentArray').invalid">
+          {{ "Checkbox is required, select atleast one value" }}
+        </mat-error>
       </div>
     </mat-card-content>
 

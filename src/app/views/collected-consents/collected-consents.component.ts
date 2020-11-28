@@ -2,6 +2,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CONSENT_OPTIONS } from '../../core/constants/consent.constants';
+import { IConsent } from '../../core/models/consent';
 
 @Component({
   selector: 'app-collected-consents',
@@ -50,20 +52,14 @@ function createNewConsent(id: number): IConsent {
     id: id.toString(),
     name,
     email: Math.round(Math.random() * 100).toString(),
-    givenConsent:
-      CONSENTS[Math.round(Math.random() * (CONSENTS.length - 1))].value,
+    givenConsent: [
+      CONSENT_OPTIONS[Math.round(Math.random() * (CONSENT_OPTIONS.length - 1))]
+        .value,
+    ].join(','),
   };
 }
 
 /** Constants used to fill up our data base. */
-const CONSENTS = [
-  { id: 'receiveNewsletter', value: 'Receive newsletter' },
-  { id: 'showTargetedAds', value: 'Be shown targeted ads' },
-  {
-    id: 'contributeToAnonymous',
-    value: 'Contribute to anonymous visit statistics',
-  },
-];
 const NAMES = [
   'Maia',
   'Asher',
@@ -85,10 +81,3 @@ const NAMES = [
   'Thomas',
   'Elizabeth',
 ];
-
-export interface IConsent {
-  id: string;
-  name: string;
-  email: string;
-  givenConsent: string;
-}
