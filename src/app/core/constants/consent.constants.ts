@@ -3,6 +3,6 @@ export const CONSENT_OPTIONS = [
   { name: 'Be shown targeted ads', value: 'showTargetedAds' },
   {
     name: 'Contribute to anonymous visit statistics',
-    value: 'contributeToAnonymous',
-  },
+    value: 'contributeToAnonymous'
+  }
 ];
