@@ -54,14 +54,6 @@ export class GiveConsentComponent implements OnInit {
     return this.form.get('items') as FormArray;
   }
 
-  get givenConsent(): string {
-    const givenConsent = this.form.value.items
-      .map((checked: boolean, i: number) => (checked ? this.items[i].value : null))
-      .filter(v => v !== null);
-
-    return givenConsent.join(',');
-  }
-
   submit(): void {
     const data: IConsentDTO = { ...this.form.value };
     const givenConsent = this.form.value.items
