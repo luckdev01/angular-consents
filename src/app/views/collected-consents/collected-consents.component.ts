@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { ConsentFacade } from 'src/app/+store/consent/consent.facade';
 import { IConsent } from '../../core/models/consent';
-
+import { CONSENT_OPTIONS } from '../../core/constants/consent.constants';
 @Component({
   selector: 'app-collected-consents',
   templateUrl: './collected-consents.component.html',
@@ -22,7 +22,16 @@ export class CollectedConsentsComponent implements OnInit {
   constructor(private consentFacade: ConsentFacade) {
     this.consentFacade.consents$.subscribe(res => {
       // Assign the data to the data source for the table to render
-      this.dataSource = new MatTableDataSource(res);
+      this.dataSource = new MatTableDataSource(
+        res.map(consent => {
+          const givenConsent = consent.givenConsent
+            .split(',')
+            .map(item => CONSENT_OPTIONS.find(option => option.value === item)?.name)
+            .join(', ');
+
+          return { ...consent, givenConsent };
+        })
+      );
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
