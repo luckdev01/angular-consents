@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   Form,
   FormBuilder,
   FormControl,
   FormGroup,
   FormArray,
-  Validators
+  Validators,
+  NgForm
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ConsentFacade } from 'src/app/+store/consent/consent.facade';
@@ -19,6 +20,7 @@ import { CONSENT_OPTIONS } from '../../core/constants/consent.constants';
   styleUrls: ['./give-consent.component.scss']
 })
 export class GiveConsentComponent implements OnInit {
+  @ViewChild('ngForm') private ngForm: NgForm;
   form: FormGroup;
   formValueChanges$: Observable<Form>;
   items = CONSENT_OPTIONS;
@@ -55,9 +57,15 @@ export class GiveConsentComponent implements OnInit {
   }
 
   submit(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
     const data: IConsentDTO = { ...this.form.value };
     const givenConsent = this.form.value.items
-      .map((checked: boolean, i: number) => (checked ? this.items[i].value : null))
+      .map((checked: boolean, i: number) =>
+        checked ? this.items[i].value : null
+      )
       .filter(v => v !== null);
     data.givenConsent = givenConsent.join(',');
 
@@ -65,8 +73,6 @@ export class GiveConsentComponent implements OnInit {
   }
 
   resetForm(): void {
-    this.form.reset();
-    this.form.clearValidators();
-    this.form.clearAsyncValidators();
+    this.ngForm?.resetForm();
   }
 }
