@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AngularMaterialModule } from './modules/angular-material.module';
@@ -31,6 +32,7 @@ import { ConsentFacade } from './+store/consent/consent.facade';
     AppRoutingModule,
     HttpClientModule,
     AngularMaterialModule,
+    ToastrModule.forRoot(),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

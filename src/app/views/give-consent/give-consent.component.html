@@ -41,7 +41,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button type="submit" color="primary" >
+      <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid">
         {{ 'Give consent' }}
       </button>
     </mat-card-actions>
