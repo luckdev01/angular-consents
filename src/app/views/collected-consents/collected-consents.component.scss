@@ -1,16 +1,21 @@
-.consents-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-  margin: 20px;
+mat-card {
+  text-align: center;
 
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
+  .consents-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    margin: 20px;
 
-  .mat-table {
-    overflow: auto;
-    max-height: 500px;
+    .mat-form-field {
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .mat-table {
+      overflow: auto;
+      max-height: 500px;
+    }
   }
 }
+

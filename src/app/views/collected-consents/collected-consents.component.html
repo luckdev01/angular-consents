@@ -1,34 +1,42 @@
-<div class="consents-container mat-elevation-z8">
-  <mat-table [dataSource]="dataSource" matSort>
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Name
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
-    </ng-container>
+<mat-card>
+  <mat-card-title>
+    {{ 'Collected Consents' }}
+  </mat-card-title>
 
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Email
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.email }} </mat-cell>
-    </ng-container>
+  <mat-card-content>
+    <div class="consents-container mat-elevation-z8">
+      <mat-table [dataSource]="dataSource" matSort>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Name
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+        </ng-container>
 
-    <!-- Consent given for Column -->
-    <ng-container matColumnDef="givenConsent">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Consent given for
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        {{ row.givenConsent }}
-      </mat-cell>
-    </ng-container>
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Email
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.email }} </mat-cell>
+        </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
-  </mat-table>
+        <!-- "Consent given for" Column -->
+        <ng-container matColumnDef="givenConsent">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Consent given for
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.givenConsent }}
+          </mat-cell>
+        </ng-container>
 
-  <mat-paginator [pageSizeOptions]="[2]"></mat-paginator>
-</div>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[2]"></mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

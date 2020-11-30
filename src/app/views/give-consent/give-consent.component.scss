@@ -7,19 +7,18 @@ mat-card {
   }
 
   .form-field {
-    padding: 20px;
+    padding-top: 20px;
   }
 
   .checkbox-frame {
     width: 400px;
-    margin-top: 20px;
-    margin: auto;
+    margin: 20px auto;
     text-align: left;
     border: 1px solid black;
     padding: 20px;
 
     mat-checkbox {
-      margin: 10px 0 10px 0;
+      margin: 10px 0;
     }
   }
 }

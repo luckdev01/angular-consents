@@ -67,7 +67,6 @@ export class GiveConsentComponent implements OnInit {
     const givenConsent = this.form.value.items
       .map((checked: boolean, i: number) => (checked ? this.items[i].value : null))
       .filter(v => v !== null);
-
     data.givenConsent = givenConsent.join(',');
 
     this.consentFacade.saveConsent(data);

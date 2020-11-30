@@ -1,10 +1,10 @@
 <mat-card>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <mat-card-title>
-      {{ 'Give Consents' }}
-    </mat-card-title>
+  <mat-card-title>
+    {{ 'Give Consents' }}
+  </mat-card-title>
 
-    <mat-card-content>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
       <mat-form-field>
         <input matInput placeholder="Name" formControlName="name" />
         <mat-error *ngIf="form.get('name').invalid">
@@ -13,11 +13,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input
-          matInput
-          placeholder="Email address"
-          formControlName="email"
-        />
+        <input matInput placeholder="Email address" formControlName="email" />
         <mat-error *ngIf="form.get('email').invalid">
           {{ 'Email address is invalid' }}
         </mat-error>
@@ -28,22 +24,31 @@
       </div>
 
       <div class="checkbox-frame">
-        <div formArrayName="items"
-          *ngFor="let item of items; let i=index">
+        <div formArrayName="items" *ngFor="let item of items; let i = index">
           <mat-checkbox [formControlName]="i">
             {{ item.name }}
           </mat-checkbox>
         </div>
-        <mat-error *ngIf="form.get('items').invalid && (form.get('items').dirty || form.get('items').touched)">
+        <mat-error
+          *ngIf="
+            form.get('items').invalid &&
+            (form.get('items').dirty || form.get('items').touched)
+          "
+        >
           {{ 'Checkbox is required, select at least one value' }}
         </mat-error>
       </div>
-    </mat-card-content>
 
-    <mat-card-actions>
-      <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid">
-        {{ 'Give consent' }}
-      </button>
-    </mat-card-actions>
-  </form>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+          [disabled]="form.invalid"
+        >
+          {{ 'Give consent' }}
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
 </mat-card>
