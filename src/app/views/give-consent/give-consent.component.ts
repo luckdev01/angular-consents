@@ -5,60 +5,75 @@ import {
   FormControl,
   FormGroup,
   FormArray,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ConsentFacade } from 'src/app/+store/consent/consent.facade';
+import { IConsentDTO } from 'src/app/core/models/consent';
+import CustomValidators from 'src/app/core/validators/custom-validators';
 import { CONSENT_OPTIONS } from '../../core/constants/consent.constants';
 
 @Component({
   selector: 'app-give-consent',
   templateUrl: './give-consent.component.html',
-  styleUrls: ['./give-consent.component.scss'],
+  styleUrls: ['./give-consent.component.scss']
 })
 export class GiveConsentComponent implements OnInit {
   form: FormGroup;
   formValueChanges$: Observable<Form>;
-  consentOptions = [];
+  items = CONSENT_OPTIONS;
   isStart = true;
+  saving: boolean;
+  error: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private consentFacade: ConsentFacade) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      givenConsentArray: this.fb.array([], [Validators.required]),
+      items: new FormArray([], CustomValidators.multipleCheckboxRequireOne)
     });
 
-    this.consentOptions = CONSENT_OPTIONS;
+    this.items.forEach(e => {
+      this.control.push(new FormControl(false));
+    });
+
+    this.consentFacade.error$.subscribe(res => {
+      this.error = res;
+    });
+    this.consentFacade.saving$.subscribe(res => {
+      this.saving = res;
+      if (!this.saving && !this.error) {
+        this.resetForm();
+      }
+    });
   }
 
-  onCheckboxChange(e: any): void {
-    const givenConsentArray: FormArray = this.form.get(
-      'givenConsentArray'
-    ) as FormArray;
+  get control(): FormArray {
+    return this.form.get('items') as FormArray;
+  }
 
-    if (e.checked) {
-      givenConsentArray.push(new FormControl(e.source.value));
-    } else {
-      let i = 0;
-      givenConsentArray.controls.forEach((item: FormControl) => {
-        if (item.value === e.source.value) {
-          givenConsentArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
-    }
+  get givenConsent(): string {
+    const givenConsent = this.form.value.items
+      .map((checked: boolean, i: number) => (checked ? this.items[i].value : null))
+      .filter(v => v !== null);
 
-    this.isStart = false;
+    return givenConsent.join(',');
   }
 
   submit(): void {
-    console.log(this.form.value);
+    const data: IConsentDTO = { ...this.form.value };
+    const givenConsent = this.form.value.items
+      .map((checked: boolean, i: number) => (checked ? this.items[i].value : null))
+      .filter(v => v !== null);
+
+    data.givenConsent = givenConsent.join(',');
+
+    this.consentFacade.saveConsent(data);
   }
 
-  reset(): void {
+  resetForm(): void {
     this.form.reset();
     this.form.clearValidators();
     this.form.clearAsyncValidators();

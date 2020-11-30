@@ -19,3 +19,8 @@ export const getConsentSaving = createSelector(
   selectConsentState,
   (state: fromConsent.State) => state.saving
 );
+
+export const getConsentError = createSelector(
+  selectConsentState,
+  (state: fromConsent.State) => state.error
+);

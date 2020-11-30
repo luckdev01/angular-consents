@@ -1,83 +1,36 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CONSENT_OPTIONS } from '../../core/constants/consent.constants';
+import { Observable } from 'rxjs';
+import { ConsentFacade } from 'src/app/+store/consent/consent.facade';
 import { IConsent } from '../../core/models/consent';
 
 @Component({
   selector: 'app-collected-consents',
   templateUrl: './collected-consents.component.html',
-  styleUrls: ['./collected-consents.component.scss'],
+  styleUrls: ['./collected-consents.component.scss']
 })
-export class CollectedConsentsComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['name', 'email', 'givenConsent'];
-  dataSource: MatTableDataSource<IConsent>;
-
+export class CollectedConsentsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-    // Create 100 consents
-    const consents: IConsent[] = [];
-    for (let i = 1; i <= 20; i++) {
-      consents.push(createNewConsent(i));
-    }
+  displayedColumns = ['name', 'email', 'givenConsent'];
+  dataSource: MatTableDataSource<IConsent>;
+  loading$: Observable<boolean>;
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(consents);
+  constructor(private consentFacade: ConsentFacade) {
+    this.consentFacade.consents$.subscribe(res => {
+      // Assign the data to the data source for the table to render
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+
+    this.loading$ = this.consentFacade.loading$;
   }
 
-  ngOnInit(): void {}
-
-  /**
-   * Set the paginator and sort after the view init since this component will
-   * be able to query its view for the initialized paginator and sort.
-   */
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnInit(): void {
+    this.consentFacade.loadConsents();
   }
 }
-
-/** Builds and returns a new Consent. */
-function createNewConsent(id: number): IConsent {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name,
-    email: Math.round(Math.random() * 100).toString(),
-    givenConsent: [
-      CONSENT_OPTIONS[Math.round(Math.random() * (CONSENT_OPTIONS.length - 1))]
-        .value,
-    ].join(','),
-  };
-}
-
-/** Constants used to fill up our data base. */
-const NAMES = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];

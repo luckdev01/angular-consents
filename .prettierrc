@@ -1,0 +1,16 @@
+{
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "tabWidth": 2,
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ],
+  "trailingComma": "none",
+  "arrowParens": "avoid"
+}
